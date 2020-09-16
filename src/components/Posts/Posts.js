@@ -3,7 +3,7 @@ import { db } from "../../firebase";
 import Post from "../Post";
 import "./Posts.scss";
 
-export default function Posts() {
+export default function Posts({ user }) {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -25,6 +25,8 @@ export default function Posts() {
             {posts.map(({ id, post }) => (
                 <Post
                     key={id}
+                    user={user}
+                    postID={id}
                     userName={post.userName}
                     userCaption={post.userCaption}
                     imageURL={post.imageURL}

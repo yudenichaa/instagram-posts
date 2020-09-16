@@ -16,7 +16,7 @@ export default function App() {
     return (
         <div className="App">
             <Header user={user} />
-            <Posts />
+            <Posts user={user} />
         </div>
     );
 }

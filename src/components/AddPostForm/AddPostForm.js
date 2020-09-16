@@ -44,6 +44,7 @@ export default function AddPostForm({ userName, onPostAdded }) {
     const [postCaption, setPostCaption] = useState("");
     const [postImage, setPostImage] = useState("");
     const [postImageLoadingProgress, setPostImageLoadingProgress] = useState(0);
+    const [isImageLoading, setIsImageLoading] = useState(false);
 
     const onPostCaptionChange = (event) => setPostCaption(event.target.value);
     const onPostImageChange = (files) => setPostImage(files[0]);
@@ -54,6 +55,7 @@ export default function AddPostForm({ userName, onPostAdded }) {
             alert("Enter caption and select image");
             return;
         }
+        setIsImageLoading(true);
         const uploadTask = storage
             .ref(`images/${postImage.name}`)
             .put(postImage);
@@ -118,11 +120,13 @@ export default function AddPostForm({ userName, onPostAdded }) {
                 dropzoneText={"Drag and drop an image here or click"}
                 onChange={onPostImageChange}
             />
-            <LinearProgress
-                className={classes.FormLinearProgress}
-                variant="determinate"
-                value={postImageLoadingProgress}
-            />
+            {isImageLoading && (
+                <LinearProgress
+                    className={classes.FormLinearProgress}
+                    variant="determinate"
+                    value={postImageLoadingProgress}
+                />
+            )}
             <Button
                 type="submit"
                 className={classes.FormButton}
