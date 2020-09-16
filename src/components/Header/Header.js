@@ -3,6 +3,7 @@ import { auth } from "../../firebase";
 import { Button } from "@material-ui/core";
 import SignUpModal from "../SignUpModal";
 import SignInModal from "../SignInModal";
+import AddPostModal from "../AddPostModal";
 import "./Header.scss";
 
 export default function Header({ user }) {
@@ -14,6 +15,10 @@ export default function Header({ user }) {
     const openSignInModal = () => setSignInModalOpen(true);
     const closeSignInModal = () => setSignInModalOpen(false);
 
+    const [addPostModalOpen, setAddPostModalOpen] = useState(false);
+    const openAddPostModal = () => setAddPostModalOpen(true);
+    const closeAddPostModal = () => setAddPostModalOpen(false);
+
     const signOut = () => auth.signOut();
 
     return (
@@ -24,9 +29,19 @@ export default function Header({ user }) {
                 alt="Instagram logo"
             />
             {user ? (
-                <Button onClick={signOut} color="secondary">
-                    Sign out
-                </Button>
+                <>
+                    <Button onClick={openAddPostModal} color="secondary">
+                        Add post
+                    </Button>
+                    <Button onClick={signOut} color="secondary">
+                        Sign out
+                    </Button>
+                    <AddPostModal
+                        userName={user.displayName}
+                        addPostModalOpen={addPostModalOpen}
+                        closeAddPostModal={closeAddPostModal}
+                    />
+                </>
             ) : (
                 <span>
                     <Button onClick={openSignUpModal} color="secondary">
@@ -35,16 +50,16 @@ export default function Header({ user }) {
                     <Button onClick={openSignInModal} color="secondary">
                         Sign in
                     </Button>
+                    <SignUpModal
+                        signUpModalOpen={signUpModalOpen}
+                        closeSignUpModal={closeSignUpModal}
+                    />
+                    <SignInModal
+                        signInModalOpen={signInModalOpen}
+                        closeSignInModal={closeSignInModal}
+                    />
                 </span>
             )}
-            <SignUpModal
-                signUpModalOpen={signUpModalOpen}
-                closeSignUpModal={closeSignUpModal}
-            />
-            <SignInModal
-                signInModalOpen={signInModalOpen}
-                closeSignInModal={closeSignInModal}
-            />
         </div>
     );
 }

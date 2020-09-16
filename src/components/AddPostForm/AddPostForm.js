@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input, Button, LinearProgress, makeStyles } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
 import firebase from "firebase";
@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     },
     DropZoneGridItem: {
         minWidth: "100%",
+        maxWidth: "30rem",
         "& img": {
             height: "auto",
             maxWidth: "95%",
@@ -37,7 +38,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default function AddPostForm({ userName }) {
+export default function AddPostForm({ userName, onPostAdded }) {
     const classes = useStyles();
 
     const [postCaption, setPostCaption] = useState("");
@@ -53,7 +54,9 @@ export default function AddPostForm({ userName }) {
             alert("Enter caption and select image");
             return;
         }
-        const uploadTask = storage.ref(`images/${postImage.name}`).put(postImage);
+        const uploadTask = storage
+            .ref(`images/${postImage.name}`)
+            .put(postImage);
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -71,12 +74,14 @@ export default function AddPostForm({ userName }) {
                     .child(postImage.name)
                     .getDownloadURL()
                     .then((url) => {
-                        db.collection("posts").add({
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                            userCaption: postCaption,
-                            imageURL: url,
-                            userName: userName,
-                        });
+                        db.collection("posts")
+                            .add({
+                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                userCaption: postCaption,
+                                imageURL: url,
+                                userName: userName,
+                            })
+                            .then(onPostAdded);
                     })
                     .catch((error) => {
                         alert(error.message);

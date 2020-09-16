@@ -14,7 +14,6 @@ const useStyles = makeStyles(() => ({
 export default function Post({ userName, userCaption, imageURL, timestamp }) {
     const classes = useStyles();
     const postDate = timestamp ? new Date(timestamp.seconds * 1000).toLocaleString() : "";
-    console.log(timestamp);
     return (
         <div className="Post">
             <div className="Post-Header">

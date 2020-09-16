@@ -1,10 +1,7 @@
 .AddPostForm {
-    max-width: 33rem;
-    border: 0.05rem solid lightgray;
+    min-width: 33rem;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem auto 0 auto;
-    padding: 0.7rem;
 }
