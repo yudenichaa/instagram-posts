@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { Button } from "@material-ui/core";
 import SignUpModal from "../SignUpModal";
 import SignInModal from "../SignInModal";
 import "./Header.scss";
 
-export default function Header() {
-    const [user, setUser] = useState(null);
-
+export default function Header({ user }) {
     const [signUpModalOpen, setSignUpModalOpen] = useState(false);
     const openSignUpModal = () => setSignUpModalOpen(true);
     const closeSignUpModal = () => setSignUpModalOpen(false);
@@ -17,12 +15,6 @@ export default function Header() {
     const closeSignInModal = () => setSignInModalOpen(false);
 
     const signOut = () => auth.signOut();
-
-    useEffect(() => {
-        return auth.onAuthStateChanged((authUser) => {
-            authUser ? setUser(authUser) : setUser(null);
-        });
-    }, []);
 
     return (
         <div className="Header">

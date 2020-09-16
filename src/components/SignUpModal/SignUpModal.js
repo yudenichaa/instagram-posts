@@ -31,6 +31,10 @@ export default function SignUpModal({ signUpModalOpen, closeSignUpModal }) {
 
     const onSignUp = (event) => {
         event.preventDefault();
+        if (!userName) {
+            alert("Enter name");
+            return;
+        }
         auth.createUserWithEmailAndPassword(userEmail, userPassword)
             .then((authUser) => {
                 return authUser.user.updateProfile({
