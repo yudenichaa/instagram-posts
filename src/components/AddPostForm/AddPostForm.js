@@ -47,8 +47,6 @@ export default function AddPostForm({ userName }) {
     const onPostCaptionChange = (event) => setPostCaption(event.target.value);
     const onPostImageChange = (files) => setPostImage(files[0]);
 
-    useEffect(() => {}, []);
-
     const onAddPost = (event) => {
         event.preventDefault();
         if (!postCaption || !postImage) {

@@ -7,14 +7,17 @@ export default function Posts() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        return db.collection("posts").onSnapshot((snapshot) => {
-            setPosts(
-                snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    post: doc.data(),
-                }))
-            );
-        });
+        return db
+            .collection("posts")
+            .orderBy("timestamp", "desc")
+            .onSnapshot((snapshot) => {
+                setPosts(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        post: doc.data(),
+                    }))
+                );
+            });
     }, []);
 
     return (
@@ -25,6 +28,7 @@ export default function Posts() {
                     userName={post.userName}
                     userCaption={post.userCaption}
                     imageURL={post.imageURL}
+                    timestamp={post.timestamp}
                 />
             ))}
         </div>
