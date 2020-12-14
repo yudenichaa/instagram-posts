@@ -1,3 +1,7 @@
 node_modules
 public/bundle.js
 .vscode
+build
+.firebaserc
+firebase.json
+.firebase

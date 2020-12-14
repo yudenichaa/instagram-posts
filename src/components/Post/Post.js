@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Button, InputBase } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { db } from "../../firebase";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 const useStyles = makeStyles(() => ({
     PostAvatar: {

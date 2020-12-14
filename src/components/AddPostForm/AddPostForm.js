@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, LinearProgress, makeStyles } from "@material-ui/core";
 import { DropzoneArea } from "material-ui-dropzone";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import { storage, db } from "../../firebase";
 import "./AddPostForm.scss";
 
